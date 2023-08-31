@@ -6,12 +6,12 @@ from .models import Text
 # Create your views here.
 
 def getComments():
-    returnDict = {}
+    returnList = []
     for comment in Text.objects.all():
-        returnDict[comment.user_name] = comment.input_text
-    returnDict = dict(reversed(returnDict.items()))
-    print(returnDict)
-    return returnDict
+        returnList.append([comment.user_name, comment.input_text])
+    #returnList = reversed(returnList.items()))
+    returnList.reverse()
+    return returnList
 
 def index(request):
     if request.method == "POST":
@@ -21,7 +21,6 @@ def index(request):
             comment.save()
             return redirect(request.path)
         
-    returnDict = getComments()
-    print(returnDict)
-    context = {"comments": returnDict}
+    returnList = getComments()
+    context = {"comments": returnList}
     return render(request, "dbApp/index.html", context)
