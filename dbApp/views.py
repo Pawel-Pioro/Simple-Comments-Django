@@ -9,7 +9,6 @@ def getComments():
     returnList = []
     for comment in Text.objects.all():
         returnList.append([comment.user_name, comment.input_text])
-    #returnList = reversed(returnList.items()))
     returnList.reverse()
     return returnList
 
