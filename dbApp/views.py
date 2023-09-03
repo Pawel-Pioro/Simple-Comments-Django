@@ -18,6 +18,7 @@ def index(request):
         if request.POST.get("name") and request.POST.get("comment"):
             comment = Text(user_name=request.POST.get("name"), input_text=request.POST.get("comment"))
             comment.save()
+            print(comment)
             return redirect(request.path)
         
     returnList = getComments()
