@@ -7,20 +7,24 @@
         {% bootstrap_javascript %}
     </head>
     <body>
-        <div class="p-3">
-            <form action="{% url 'dbApp:index' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group mb-2">
-                    <label for="name" class="my-1">Name</label>
-                    <input class="form-control type="text" name="name" placeholder="Enter name">
-                </div>
-                <div class="form-group mb-2" >
-                    <label for="comment" class="my-1">Comment</label>
-                    <textarea class="form-control type="text" name="comment" placeholder="Type comment"></textarea> 
-                </div>
-                <input type="submit" class="btn btn-light mt-2">
-            </form>
-        </div>    
+        {% if user.is_authenticated %}
+            <h3>Logged in as {{ user.get_username }}</h3>
+            <button type="button" class="btn btn-secondary" onclick="location.href = '/user/logout';">Logout</button>
+            <div class="p-3">
+                <form action="{% url 'dbApp:index' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group mb-2" >
+                        <label for="comment" class="my-1">Comment</label>
+                        <textarea class="form-control type="text" name="comment" placeholder="Type comment"></textarea> 
+                    </div>
+                    <input type="submit" class="btn btn-light mt-2">
+                </form>
+            </div>   
+        {% else %}
+            <button type="button" class="btn btn-secondary" onclick="location.href = '/user/login';">Login</button>
+            <p>You need to login to comment. Login <a href="/user/login">here</a></p>
+        {% endif %}
+         
         {% if comments %}
             {% for comment in comments %}
                 <div class="card text-white bg-secondary mb-3 ms-3" style="max-width: 28rem;">

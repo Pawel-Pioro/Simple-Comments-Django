@@ -15,10 +15,9 @@ def getComments():
 def index(request):
     if request.method == "POST":
         # code to save comment in db
-        if request.POST.get("name") and request.POST.get("comment"):
-            comment = Text(user_name=request.POST.get("name"), input_text=request.POST.get("comment"))
+        if request.POST.get("comment"):
+            comment = Text(user_name=request.user.username, input_text=request.POST.get("comment"))
             comment.save()
-            print(comment)
             return redirect(request.path)
         
     returnList = getComments()
