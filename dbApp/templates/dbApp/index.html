@@ -7,7 +7,6 @@
         {% bootstrap_javascript %}
     </head>
     <body>
-        
         {% if user.is_authenticated %}
             <h3>Logged in as {{ user.get_username }}</h3>
             <button type="button" class="btn btn-secondary" onclick="location.href = '/user/logout';">Logout</button>
